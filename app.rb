@@ -45,3 +45,12 @@ get '/details/:id' do
 	erb :details
 end
 
+post '/details/:id' do
+	post_id = params[:id]
+	content = params[:content]
+   		if content.length <= 0
+   			@error = "Type post text"
+   				
+   		end
+  erb "You typed #{content} for post #{post_id}"
+end
