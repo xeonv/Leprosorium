@@ -36,3 +36,12 @@ post '/new' do
    	@db.execute 'INSERT INTO Posts (content, created_date) values (?, datetime ())', [content]
    erb "You typed: #{content}"
 end
+
+get '/details/:id' do
+	post_id = params[:id]
+
+	results = @db.execute 'select * from Posts where id=(?)', [post_id]
+		@row = results [0]
+	erb :details
+end
+
