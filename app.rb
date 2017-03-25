@@ -52,7 +52,12 @@ post '/details/:id' do
 	post_id = params[:id]
 	content = params[:content]
    		if content.length <= 0
-   			redirect to ('/details/' + post_id)	
+   			@error = "Type comment!"
+   			results = @db.execute 'select * from Posts where id=?', [post_id]
+			@row = results [0]
+			@comments = @db.execute 'select * from Comments  where post_id=? order by id', [post_id]
+   			 return erb :details
+   			
    		end
    		@db.execute 'INSERT INTO Comments (content, created_date, post_id) values (?, datetime (),?)', [content, post_id]
   
